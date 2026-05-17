@@ -23,6 +23,10 @@ def parse(tokens):
         flags["zero"] = reg[r1] == reg[r2]
         flags["greater"] = reg[r1] > reg[r2]
         flags["smaller"] = reg[r1] < reg[r2]
+    elif operation == "jmp":
+        return int(tokens[1])
+    elif operation == "halt":
+        return -1
     else:
         alu(tokens)
 
