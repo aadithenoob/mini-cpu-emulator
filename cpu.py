@@ -52,6 +52,8 @@ def alu(tokens):
     
     print(result)
 
+ip = 0
+
 while True:
     inp = input('> ')
 
