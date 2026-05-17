@@ -4,12 +4,24 @@ reg = {
     "v2": 0
 }
 
+flags = {
+    "zero": False,
+    "greater": False,
+    "smaller": False
+}
+
 def parse(tokens):
     if operation == "mov":
         dest_reg = tokens[1]
         val = int(tokens[2])
 
         reg[dest_reg] = val
+    elif operation == "cmp":
+        r1 = tokens[1]
+        r2 = tokens[2]
+
+        if reg[r1] == reg[r2]:
+            flags["zero"] = True
     else:
         alu(tokens)
 
@@ -26,7 +38,7 @@ def alu(tokens):
     if operation == "div":
         result = val1 / val2
     
-    reg["v2"] = result
+    reg["v0"] = result
     
     print(result)
 
