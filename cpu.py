@@ -49,7 +49,7 @@ def alu(tokens):
     if operation == "mul":
         result = val1 * val2
     if operation == "div":
-        result = val1 / val2
+        result = val1 // val2
     
     reg[tokens[1]] = result
     
