@@ -46,7 +46,7 @@ def alu(tokens):
 while True:
     inp = input('> ')
 
-    if inp.lower() == "exit":
+    if inp.lower() in ("exit", "e"):
         print("Exiting.")
         break
 
