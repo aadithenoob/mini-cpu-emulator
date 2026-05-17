@@ -68,9 +68,12 @@ while True:
 
         file = tokens[1]
 
-        with open(file, "r") as f:
-            for line in f:
-                program.append(line.rstrip('\n'))
+        try:
+            with open(file, "r") as f:
+                for line in f:
+                    program.append(line.rstrip('\n'))
+        except FileNotFoundError as e:
+            print("Error: File not found.")
 
         while ip < len(program):
             toks = program[ip].split(" ")
