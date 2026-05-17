@@ -1,4 +1,5 @@
 memory = [0] * 4096
+free_index = 0
 
 reg = { 
     "v0": 0,
@@ -13,6 +14,8 @@ flags = {
 }
 
 def parse(tokens, ip):
+    global free_index
+
     if operation in reg:
         print(reg[tokens[0]])
     elif operation == "mov":
