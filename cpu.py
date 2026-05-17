@@ -1,4 +1,4 @@
-memory = [0] * 10
+memory = [0] * 4096
 free_index = 0
 
 reg = { 
