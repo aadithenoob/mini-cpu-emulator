@@ -14,19 +14,17 @@ flags = {
 }
 
 def parse(tokens, ip):
-    global free_index
-
+    global free_index, operation  
+    
     if operation in reg:
         print(reg[tokens[0]])
     elif operation == "mov":
         dest_reg = tokens[1]
         val = int(tokens[2])
-
         reg[dest_reg] = val
     elif operation == "cmp":
         r1 = tokens[1]
         r2 = tokens[2]
-
         flags["zero"] = reg[r1] == reg[r2]
         flags["greater"] = reg[r1] > reg[r2]
         flags["smaller"] = reg[r1] < reg[r2]
