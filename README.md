@@ -1,7 +1,7 @@
 # Mini CPU Emulator
 An assembly-like CPU emulator in Python.
 
-*Please keep in mind that this is a this is a learning project and the code is not intended for professional purposes.*
+*Note: This is a learning project and the code is not intended for professional purposes.*
 
 ## Install
 Clone and navigate to the project folder:
