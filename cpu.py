@@ -10,8 +10,10 @@ flags = {
     "smaller": False
 }
 
-def parse(tokens):
-    if operation == "mov":
+def parse(tokens, ip):
+    if operation in reg:
+        print(reg[tokens[0]])
+    elif operation == "mov":
         dest_reg = tokens[1]
         val = int(tokens[2])
 
