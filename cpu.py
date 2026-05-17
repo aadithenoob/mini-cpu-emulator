@@ -35,6 +35,12 @@ def parse(tokens, ip):
             return int(tokens[1])    
     elif operation == "jmp":
         return int(tokens[1])
+    elif operation == "st":
+        if tokens[1] in reg:
+            memory[free_index] = reg[tokens[1]]
+        else:
+            memory[free_index] = int(tokens[1])
+        free_index += 1
     elif operation == "halt":
         return -1
     else:
