@@ -1,2 +1,2 @@
-# mini-cpu-emulator
+# Mini CPU Emulator
 An assembly-like CPU emulator
