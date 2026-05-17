@@ -1,4 +1,4 @@
-memory = [0] * 4096
+memory = [0] * 10
 free_index = 0
 
 reg = { 
@@ -39,6 +39,11 @@ def parse(tokens, ip):
         else:
             memory[free_index] = int(tokens[1])
         free_index += 1
+    elif operation == "ld":
+        if len(tokens) > 1 and tokens[1] in reg:
+            reg[tokens[1]] = memory[free_index - 1]
+        else:
+            reg["v0"] = memory[free_index - 1]
     elif operation == "halt":
         return -1
     else:
