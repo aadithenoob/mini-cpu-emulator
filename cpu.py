@@ -92,4 +92,4 @@ while True:
 
     operation = ""
     operation = tokens[0]
-    parse(tokens)
+    parse(tokens, ip)
