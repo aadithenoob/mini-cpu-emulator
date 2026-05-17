@@ -25,6 +25,9 @@ def parse(tokens, ip):
         flags["zero"] = reg[r1] == reg[r2]
         flags["greater"] = reg[r1] > reg[r2]
         flags["smaller"] = reg[r1] < reg[r2]
+    elif operation == "je":
+        if flags["zero"]:
+            return int(tokens[1])    
     elif operation == "jmp":
         return int(tokens[1])
     elif operation == "halt":
