@@ -38,7 +38,7 @@ def alu(tokens):
     if operation == "div":
         result = val1 / val2
     
-    reg["v0"] = result
+    reg[tokens[1]] = result
     
     print(result)
 
