@@ -20,8 +20,9 @@ def parse(tokens):
         r1 = tokens[1]
         r2 = tokens[2]
 
-        if reg[r1] == reg[r2]:
-            flags["zero"] = True
+        flags["zero"] = reg[r1] == reg[r2]
+        flags["greater"] = reg[r1] > reg[r2]
+        flags["smaller"] = reg[r1] < reg[r2]
     else:
         alu(tokens)
 
