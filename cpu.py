@@ -79,8 +79,14 @@ while True:
             toks = program[ip].split(" ")
             toks = [x.lower() for x in toks]
             operation = toks[0]
-            parse(toks)
-            ip += 1
+            new_ip = parse(toks, ip) 
+
+            if new_ip is None:
+                ip += 1
+            elif new_ip == -1:
+                break
+            else:
+                ip = new_ip
 
         continue
 
