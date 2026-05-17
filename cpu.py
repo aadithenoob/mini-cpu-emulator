@@ -59,7 +59,7 @@ while True:
         print("Exiting.")
         break
 
-    tokens = inp.split(" ")
+    tokens = inp.split()
     tokens = [x.lower() for x in tokens]
 
     if tokens[0] == "run":
