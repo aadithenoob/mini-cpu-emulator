@@ -44,11 +44,11 @@ def alu(operation, tokens):
 
     if operation == "add":
         result = val1 + val2
-    if operation == "sub":
+    elif operation == "sub":
         result = val1 - val2
-    if operation == "mul":
+    elif operation == "mul":
         result = val1 * val2
-    if operation == "div":
+    elif operation == "div":
         result = val1 // val2
     
     reg[tokens[1]] = result
