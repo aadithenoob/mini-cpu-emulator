@@ -16,9 +16,9 @@ flags = {
     "smaller": False
 }
 
-def parse(tokens, ip):
-    global free_index, operation  
-    
+def parse(tokens, operation, ip):
+    global free_index
+
     if operation in reg:
         print(reg[tokens[0]])
     elif operation == "mov":
@@ -50,9 +50,9 @@ def parse(tokens, ip):
     elif operation == "halt":
         return -1
     else:
-        alu(tokens)
+        alu(operation, tokens)
 
-def alu(tokens):
+def alu(operation, tokens):
     val1 = reg[tokens[1]]
     val2 = reg[tokens[2]]
 
@@ -98,7 +98,7 @@ while True:
             toks = program[ip].split(" ")
             toks = [x.lower() for x in toks]
             operation = toks[0]
-            new_ip = parse(toks, ip) 
+            new_ip = parse(toks, operation, ip) 
 
             if new_ip is None:
                 ip += 1
@@ -109,6 +109,5 @@ while True:
 
         continue
 
-    operation = ""
     operation = tokens[0]
-    parse(tokens, ip)
+    parse(tokens, operation, ip)
