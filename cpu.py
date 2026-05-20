@@ -19,10 +19,7 @@ def file_handler(ip, program, file):
     try:
         with open(file, "r") as f:
             for line in f:
-                if line.strip():
-                    program.append(line.rstrip('\n'))
-                else:
-                    continue
+                program.append(line.rstrip('\n'))
                     
     except FileNotFoundError as e:
         print("error: file not found.")
@@ -43,7 +40,7 @@ def file_handler(ip, program, file):
         continue
 
 def parse(tokens, operation):
-    if operation[0][0] == "#":
+    if not tokens or operation[0] == "#":
         return
 
     elif operation == "val":
@@ -146,9 +143,6 @@ while True:
     if inp.lower() in ("exit", "e"):
         print("exiting.")
         break
-
-    if inp == "":
-        continue
 
     tokens = inp.split()
     tokens = [x.lower() for x in tokens]
