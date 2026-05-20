@@ -128,7 +128,7 @@ while True:
             print("error: file not found.")
 
         while ip < len(program):
-            toks = program[ip].split(" ")
+            toks = program[ip].split()
             toks = [x.lower() for x in toks]
             operation = toks[0]
             new_ip = parse(toks, operation) 
