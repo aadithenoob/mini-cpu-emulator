@@ -18,6 +18,7 @@ flags = {
 def parse(tokens, operation):
     if operation in reg:
         print(reg[tokens[0]])
+
     elif operation == "mov":
         dest_reg = tokens[1]
         val = int(tokens[2])
@@ -35,16 +36,24 @@ def parse(tokens, operation):
         return int(tokens[1])
     elif operation == "st":
         if len(tokens) > 2:
-            if tokens[1] in reg:
-                if tokens[2] in reg:
-                    memory[reg[tokens[2]]] = reg[tokens[1]]
+            src_val = tokens[1]
+            dest = tokens[2]
+
+            if dest in reg:
+                addr = reg[dest]
+
+                if 0 <= addr < len(memory):
+                    if src_val in reg:
+                        memory[addr] = reg[src_val]
+                    else:
+                        memory[addr] = int(src_val)
                 else:
-                    memory[int(tokens[2])] = reg[tokens[1]]
+                    print("segmentation fault: address value out of bounds.")
+                    return -1
             else:
-                if tokens[2] in reg:
-                    memory[reg[tokens[2]]] = int(tokens[1])
-                else:
-                    memory[int(tokens[2])] = int(tokens[1])
+                print("error: address value must be in a register.")
+        else:
+            print("error: invalid number of arguments.")
 
     elif operation == "ld":
         if len(tokens) > 2:
