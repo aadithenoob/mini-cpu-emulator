@@ -15,12 +15,45 @@ flags = {
     "smaller": False
 }
 
+def file_handler(ip, program, file):
+    try:
+        with open(file, "r") as f:
+            for line in f:
+                if line.strip():
+                    program.append(line.rstrip('\n'))
+                else:
+                    continue
+                    
+    except FileNotFoundError as e:
+        print("error: file not found.")
+
+    while ip < len(program):
+        tokens = program[ip].split()
+        tokens = [x.lower() for x in tokens]
+        operation = tokens[0]
+        new_ip = parse(tokens, operation) 
+
+        if new_ip is None:
+            ip += 1
+        elif new_ip == -1:
+            break
+        else:
+            ip = new_ip
+
+        continue
+
 def parse(tokens, operation):
     if operation[0][0] == "#":
         return
 
     elif operation == "val":
         print(reg[tokens[1]])
+
+    elif tokens[0] == "run":
+        ip = 0
+        program = []
+        file = tokens[1]
+        file_handler(ip, program, file)
 
     elif operation == "mov":
         dest_reg = tokens[1]
@@ -119,38 +152,6 @@ while True:
 
     tokens = inp.split()
     tokens = [x.lower() for x in tokens]
-
-    if tokens[0] == "run":
-        ip = 0
-        program = []
-
-        file = tokens[1]
-
-        try:
-            with open(file, "r") as f:
-                for line in f:
-                    if line.strip():
-                        program.append(line.rstrip('\n'))
-                    else:
-                        continue
-                    
-        except FileNotFoundError as e:
-            print("error: file not found.")
-
-        while ip < len(program):
-            tokens = program[ip].split()
-            tokens = [x.lower() for x in tokens]
-            operation = tokens[0]
-            new_ip = parse(tokens, operation) 
-
-            if new_ip is None:
-                ip += 1
-            elif new_ip == -1:
-                break
-            else:
-                ip = new_ip
-
-        continue
 
     operation = tokens[0]
     result = parse(tokens, operation)
