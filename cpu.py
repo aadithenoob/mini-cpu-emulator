@@ -16,7 +16,7 @@ flags = {
 }
 
 def parse(tokens, operation):
-    if operation == "#":
+    if operation[0][0] == "#":
         return
 
     elif operation == "val":
