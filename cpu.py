@@ -16,7 +16,10 @@ flags = {
 }
 
 def parse(tokens, operation):
-    if operation == "val":
+    if operation == "#":
+        return
+
+    elif operation == "val":
         print(reg[tokens[1]])
 
     elif operation == "mov":
@@ -128,10 +131,10 @@ while True:
             print("error: file not found.")
 
         while ip < len(program):
-            toks = program[ip].split()
-            toks = [x.lower() for x in toks]
-            operation = toks[0]
-            new_ip = parse(toks, operation) 
+            tokens = program[ip].split()
+            tokens = [x.lower() for x in tokens]
+            operation = tokens[0]
+            new_ip = parse(tokens, operation) 
 
             if new_ip is None:
                 ip += 1
