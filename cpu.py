@@ -104,7 +104,7 @@ while True:
     inp = input('> ')
 
     if inp.lower() in ("exit", "e"):
-        print("Exiting.")
+        print("exiting.")
         break
 
     tokens = inp.split()
@@ -121,7 +121,7 @@ while True:
                 for line in f:
                     program.append(line.rstrip('\n'))
         except FileNotFoundError as e:
-            print("Error: File not found.")
+            print("error: file not found.")
 
         while ip < len(program):
             toks = program[ip].split(" ")
