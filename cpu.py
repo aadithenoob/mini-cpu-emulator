@@ -1,3 +1,5 @@
+memory = [0] * 4096
+
 reg = { 
     "v0": 0,
     "v1": 0,
@@ -13,31 +15,76 @@ flags = {
     "smaller": False
 }
 
-def parse(tokens, operation, ip):
+def parse(tokens, operation):
     if operation in reg:
         print(reg[tokens[0]])
+
     elif operation == "mov":
         dest_reg = tokens[1]
         val = int(tokens[2])
-
         reg[dest_reg] = val
+
     elif operation == "cmp":
         r1 = tokens[1]
         r2 = tokens[2]
-
         flags["zero"] = reg[r1] == reg[r2]
         flags["greater"] = reg[r1] > reg[r2]
         flags["smaller"] = reg[r1] < reg[r2]
+
     elif operation == "je":
         if flags["zero"]:
             return int(tokens[1])    
+        
     elif operation == "jmp":
         return int(tokens[1])
+    
+    elif operation == "st":
+        if len(tokens) > 2:
+            src_val = tokens[1]
+            dest = tokens[2]
+
+            if dest in reg:
+                addr = reg[dest]
+
+                if 0 <= addr < len(memory):
+                    if src_val in reg:
+                        memory[addr] = reg[src_val]
+                    else:
+                        memory[addr] = int(src_val)
+                else:
+                    print("segmentation fault: address value out of bounds.")
+                    return -1
+            else:
+                print("error: address value must be in a register.")
+        else:
+            print("error: invalid number of arguments.")
+
+    elif operation == "ld":
+        if len(tokens) > 2:
+            dest = tokens[1]
+            src = tokens[2]
+
+            if src in reg:
+                addr = reg[src]
+
+                if 0 <= addr < len(memory):
+                    if dest in reg:
+                        reg[dest] = memory[addr]
+                    else:
+                        print(f"error: invalid register {dest}.")
+                else:
+                    print("segmentation fault: address value out of bounds.")
+                    return -1
+            else:
+                print("error: address value must be in a register.")
+        else:
+            print("error: invalid number of arguments.")
+                    
     elif operation == "halt":
         return -1
     else:
         alu(operation, tokens)
-
+        
 def alu(operation, tokens):
     val1 = reg[tokens[1]]
     val2 = reg[tokens[2]]
@@ -61,7 +108,7 @@ while True:
     inp = input('> ')
 
     if inp.lower() in ("exit", "e"):
-        print("Exiting.")
+        print("exiting.")
         break
 
     tokens = inp.split()
@@ -78,13 +125,13 @@ while True:
                 for line in f:
                     program.append(line.rstrip('\n'))
         except FileNotFoundError as e:
-            print("Error: File not found.")
+            print("error: file not found.")
 
         while ip < len(program):
-            toks = program[ip].split(" ")
+            toks = program[ip].split()
             toks = [x.lower() for x in toks]
             operation = toks[0]
-            new_ip = parse(toks, operation, ip) 
+            new_ip = parse(toks, operation) 
 
             if new_ip is None:
                 ip += 1
@@ -96,4 +143,7 @@ while True:
         continue
 
     operation = tokens[0]
-    parse(tokens, operation, ip)
+    result = parse(tokens, operation)
+    
+    if result == -1:
+        break
