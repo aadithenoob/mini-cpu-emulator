@@ -23,17 +23,21 @@ def parse(tokens, operation):
         dest_reg = tokens[1]
         val = int(tokens[2])
         reg[dest_reg] = val
+
     elif operation == "cmp":
         r1 = tokens[1]
         r2 = tokens[2]
         flags["zero"] = reg[r1] == reg[r2]
         flags["greater"] = reg[r1] > reg[r2]
         flags["smaller"] = reg[r1] < reg[r2]
+
     elif operation == "je":
         if flags["zero"]:
             return int(tokens[1])    
+        
     elif operation == "jmp":
         return int(tokens[1])
+    
     elif operation == "st":
         if len(tokens) > 2:
             src_val = tokens[1]
