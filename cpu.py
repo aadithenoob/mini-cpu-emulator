@@ -127,7 +127,7 @@ while True:
             toks = program[ip].split(" ")
             toks = [x.lower() for x in toks]
             operation = toks[0]
-            new_ip = parse(toks, operation, ip) 
+            new_ip = parse(toks, operation) 
 
             if new_ip is None:
                 ip += 1
@@ -139,4 +139,7 @@ while True:
         continue
 
     operation = tokens[0]
-    parse(tokens, operation, ip)
+    result = parse(tokens, operation)
+    
+    if result == -1:
+        break
