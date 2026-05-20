@@ -16,8 +16,8 @@ flags = {
 }
 
 def parse(tokens, operation):
-    if operation in reg:
-        print(reg[tokens[0]])
+    if operation == "val":
+        print(reg[tokens[1]])
 
     elif operation == "mov":
         dest_reg = tokens[1]
