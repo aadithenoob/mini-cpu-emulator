@@ -57,11 +57,24 @@ def parse(tokens, operation):
 
     elif operation == "ld":
         if len(tokens) > 2:
-            if tokens[1] in reg:
-                if tokens[2] in reg:
-                    reg[tokens[1]] = memory[reg[tokens[2]]]
+            dest = tokens[1]
+            src = tokens[2]
+
+            if src in reg:
+                addr = reg[src]
+
+                if 0 <= addr < len(memory):
+                    if dest in reg:
+                        reg[dest] = memory[addr]
+                    else:
+                        print(f"error: invalid register {dest}.")
                 else:
-                    reg[tokens[1]] = memory[int(tokens[2])]
+                    print("segmentation fault: address value out of bounds.")
+                    return -1
+            else:
+                print("error: address value must be in a register.")
+        else:
+            print("error: invalid number of arguments.")
                     
     elif operation == "halt":
         return -1
