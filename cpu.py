@@ -15,7 +15,7 @@ flags = {
     "smaller": False
 }
 
-def parse(tokens, operation, ip):
+def parse(tokens, operation):
     if operation in reg:
         print(reg[tokens[0]])
     elif operation == "mov":
