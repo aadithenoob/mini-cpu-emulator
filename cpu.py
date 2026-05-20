@@ -26,6 +26,11 @@ def file_handler(ip, program, file):
 
     while ip < len(program):
         tokens = program[ip].split()
+
+        if not tokens:
+            ip += 1
+            continue
+
         tokens = [x.lower() for x in tokens]
         operation = tokens[0]
         new_ip = parse(tokens, operation) 
@@ -44,7 +49,10 @@ def parse(tokens, operation):
         return
 
     elif operation == "val":
-        print(reg[tokens[1]])
+        if len(tokens) > 1 and tokens[1] in reg:
+            print(reg[tokens[1]])
+        else:
+            print("error: missing or invalid register.")
 
     elif tokens[0] == "run":
         ip = 0
@@ -53,9 +61,10 @@ def parse(tokens, operation):
         file_handler(ip, program, file)
 
     elif operation == "mov":
-        dest_reg = tokens[1]
-        val = int(tokens[2])
-        reg[dest_reg] = val
+        if len(tokens) > 2:
+            dest_reg = tokens[1]
+            val = int(tokens[2])
+            reg[dest_reg] = val
 
     elif operation == "cmp":
         r1 = tokens[1]
@@ -112,7 +121,7 @@ def parse(tokens, operation):
                 print("error: address value must be in a register.")
         else:
             print("error: invalid number of arguments.")
-                    
+
     elif operation == "halt":
         return -1
     else:
@@ -145,6 +154,10 @@ while True:
         break
 
     tokens = inp.split()
+
+    if not tokens:
+        continue
+
     tokens = [x.lower() for x in tokens]
 
     operation = tokens[0]
