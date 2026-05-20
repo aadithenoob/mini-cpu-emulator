@@ -114,6 +114,9 @@ while True:
         print("exiting.")
         break
 
+    if inp == "":
+        continue
+
     tokens = inp.split()
     tokens = [x.lower() for x in tokens]
 
@@ -126,7 +129,11 @@ while True:
         try:
             with open(file, "r") as f:
                 for line in f:
-                    program.append(line.rstrip('\n'))
+                    if line.strip():
+                        program.append(line.rstrip('\n'))
+                    else:
+                        continue
+                    
         except FileNotFoundError as e:
             print("error: file not found.")
 
